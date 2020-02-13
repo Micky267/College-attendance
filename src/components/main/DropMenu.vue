@@ -1,6 +1,6 @@
 <template>
-  <div class="drop-menu">
-    <div class="title" @click="ifShow=!ifShow">
+  <div class="drop-menu" @mouseenter="ifShow=true" @mouseleave="ifShow=false">
+    <div class="title"  >
       <span>账户</span>
       <i class="fa fa-angle-down"></i>
     </div>
@@ -24,6 +24,7 @@ export default {
   methods:{
     choose(index){
       if(index ==1){
+        sessionStorage.clear();
         this.$router.push('/login')
       }
       console.log('index',index)

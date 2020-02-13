@@ -6,6 +6,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/icon/font-awesome.min.css'
 import './assets/css/normalize.css'
+import './mock/mock.js' // 导入这个 就已经开启拦截了
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+Vue.use(VueAxios,axios);
+axios.defaults.baseURL = 'http://mockjs.com/api' // 设置默认请求的url
+// Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);

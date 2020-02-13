@@ -28,13 +28,15 @@ export default {
       menuList: [],
       ifOpen: true,
       curMenuIndex: 0,
-      curSubMenuIndex: 0
+      curSubMenuIndex: 0,
+      ifInit:true
     };
   },
   mounted(){
-   const role =  sessionStorage.getItem('role');
-   console.log('接收到的role',role)
-   switch(role){
+    const navOne =  sessionStorage.getItem('navOne');
+    const navTwo =  sessionStorage.getItem('navTwo');
+    const role =  sessionStorage.getItem('role');
+    switch(role){
       case '1':
        this.menuList = stuMenuList
        this.curSubMenuIndex = -1
@@ -48,10 +50,17 @@ export default {
        default:
         console.log('没有进去角色定位！session存的role',role);
         return;
-   }
+     }
+     if(navOne){
+       this.curMenuIndex = navOne
+       this.curSubMenuIndex = navTwo
+     }
   },
   methods: {
     onWrapMenu: function(item,index) {
+      //点击一级菜单时，二级菜单默认为-1
+      sessionStorage.setItem('navTwo',-1)
+      sessionStorage.setItem('navOne',index)
       if (this.curMenuIndex == index && this.ifOpen == true) {
         this.ifOpen = false;
       } else {
@@ -60,13 +69,16 @@ export default {
       this.curMenuIndex = index;
       this.curSubMenuIndex = -1;
       if(item.path){
-        this.$emit('setNavTitle',item.title)
+        this.$emit('setNavTitle')
+        sessionStorage.setItem('navTitle',item.title)
         this.$router.push(item.path);
       }
     },
     onSubMenu: function(item, index) {
+      sessionStorage.setItem('navTwo',index)
       this.curSubMenuIndex = index;
-      this.$emit('setNavTitle',item.title)
+      this.$emit('setNavTitle')
+      sessionStorage.setItem('navTitle',item.title)
       this.$router.push(item.path);
     }
   }
@@ -108,7 +120,7 @@ const teaMenuList = [
   {
     title: "开始考勤",
     icon: "fa-bar-chart",
-    path: "/user/teacher/teacher-attend",
+    path: "/user/teacher/attend-init",
   },
 ]
 

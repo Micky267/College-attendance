@@ -5,12 +5,12 @@
           <div id="darkbannerwrap"></div>
           <el-form :label-position="labelPosition" >
             <el-form-item >
-              <el-input v-model="name" placeholder="请输入账号"></el-input>
+              <el-input v-model="sid" placeholder="请输入账号"></el-input>
             </el-form-item>
             <el-form-item>
               <el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
             </el-form-item>
-            <el-form-item label="角色" >
+            <el-form-item>
               <el-radio-group v-model="role">
                 <el-radio label="学生" ></el-radio>
                 <el-radio label="老师" ></el-radio>
@@ -32,14 +32,15 @@ export default {
   data(){
       return {
         labelPosition: 'right',
-        name: '',
+        sid: '',
         password: '',
-        role: ''
+        role: '学生'
       }
   },
   methods:{
     submitForm(){
       console.log("this",this.role)
+      sessionStorage.setItem('sid', this.sid);
       switch(this.role){
         case '学生':
          this.$router.push('user/student')

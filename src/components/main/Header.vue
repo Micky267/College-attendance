@@ -34,7 +34,7 @@ export default {
 .drop-menu{
   position: absolute;
   right: 10px;
-  width: 100px;
+  width: 80px;
   line-height: 45px;
 }
 </style>

@@ -11,6 +11,7 @@ import StuDatas from '../views/admin/StuDatas.vue'
 import TeaDatas from '../views/admin/TeaDatas.vue'
 import Teacher from '../views/teacher/Teacher.vue'
 import AttendRecord from '../views/teacher/AttendRecord.vue'
+import AttendInit from '../views/teacher/AttendInit.vue'
 import TeacherAttend from '../views/teacher/TeacherAttend.vue'
 
 const originalPush = VueRouter.prototype.push
@@ -19,7 +20,6 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
   return originalPush.call(this, location).catch(err => err)
 }
 Vue.use(VueRouter)
-
 const routes = [
   {
     path: '/',
@@ -59,7 +59,11 @@ const routes = [
             component: AttendRecord, 
           },
           { 
-            path: 'teacher-attend', 
+            path: 'attend-init', 
+            component: AttendInit, 
+          },
+          { 
+            path: 'teacher-attend/:id', 
             component: TeacherAttend, 
           },
         ]
