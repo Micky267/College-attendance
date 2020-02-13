@@ -42,10 +42,10 @@ Mock.mock(`${domain}/user/getCourseDetail`, 'get', {
 Mock.mock(`${domain}/user/getStudent`, 'get', {
   code: 200,
   'data|1':[{
-    'sid|+1':162011001,
-    'sName':'@NAME',
-    'sex':'@SEX',
-    'phone':'@phone',
+    'stuId|+1':162011001,
+    'sName':'@CNAME',
+    'sex':['男','女'],
+    'phone|1':[15107659897,1534849816],
     'grade|1':[206,2017,2018,2019],
     'faculty|1':['电气学院'],
     'majoy|1':['计算机','通信','电气','电子'],
@@ -79,16 +79,25 @@ Mock.mock(`${domain}/admin/getAllCoures`, 'get', {
     'sid|+1':10011,
     'yearSemester':'2016~2017 第二学期',
     'majoy|1':['计算机','通信','电气','电子'],
-    'cName|+1':['c语言','java','网站设计','计算机基础'],
-    'time|+1':['周五3-5','周三3-5，周四8-10','周三3-5，周四8-10','周四8-10'],
-    'tName|+1':'@NAME',
+    'cNameTime|+1':['c语言(周五3-5)','java（周三3-5，周四8-10）','网站设计（周三3-5，周四8-10）','计算机基础（周四8-10）'],
+    'tName|+1':'@CNAME',
     'attendTotal|18-36':1,
-    'normal': function () {
-      return (this.attendTotal-this.late-this.truant-this.leave)
-    },
-    'late|0-5': 1,
-    'truant|0-5': 1,
-    'leave|0-5': 1,
+    'stuTotal|50-100':1,
+    'lateAVG|0-5': 1,
+    'truantAVG|0-5': 1,
+    'leaveAVG|0-5': 1,
+  }]
+});
+
+//管理员查看老师信息
+Mock.mock(`${domain}/admin/getTeacher`, 'get', {
+  code: 200,
+  'data|1':[{
+    'tId|+1':1001,
+    'sName':'@CNAME',
+    'sex':['男','女'],
+    'phone|1':[15107659897,1534849816],
+    'faculty|1':['电气学院'],
   }]
 });
 

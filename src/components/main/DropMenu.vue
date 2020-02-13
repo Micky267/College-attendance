@@ -17,13 +17,16 @@ export default {
   name: "dropMenu",
   data() {
     return {
-      list: ["切换账号", "退出"],
+      list: ["修改密码", "退出"],
       ifShow: false
     };
   },
   methods:{
     choose(index){
-      if(index ==1){
+      if(index == 0){
+        this.$router.push('/updatePW')
+      }
+      if(index == 1){
         sessionStorage.clear();
         this.$router.push('/login')
       }

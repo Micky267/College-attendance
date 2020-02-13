@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import UpdatePW from '../views/UpdatePW.vue'
 import Student from '../views/student/Student.vue'
 import MyAttend from '../views/student/MyAttend.vue'
 import Other from '../views/student/Other.vue'
@@ -29,6 +30,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/updatePW',
+    name: 'updatePW',
+    component: UpdatePW
   },
   {
     path: '/user',

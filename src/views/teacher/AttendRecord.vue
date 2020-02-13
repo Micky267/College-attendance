@@ -1,5 +1,5 @@
 <template>
-  <div class="attend-attend">
+  <div class="attend-record">
     <el-form :inline="true" class="demo-form-inline">
       <el-form-item label="学期">
         <div class="block">
@@ -32,7 +32,7 @@
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="detailFn(scope.$index, scope.row)">查看详情</el-button>
         </template>
-    </el-table-column>
+      </el-table-column>
     </el-table>
     <el-pagination background layout="prev, pager, next" :total="100" @current-change="pageChange"></el-pagination>
     <el-dialog title="课程考勤详情" :visible.sync="dialogTableVisible" width="40%" >
