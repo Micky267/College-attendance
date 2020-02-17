@@ -101,6 +101,7 @@ export default {
             type: 'success',
             message: '保存成功!'
           });
+          this.$router.push('/user/teacher/attend-init/')
         }).catch(() => {
           this.$message({
             type: 'info',

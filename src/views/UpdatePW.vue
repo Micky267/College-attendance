@@ -59,7 +59,6 @@ export default {
     position: relative;
     background: url(../assets/img/bg.png) no-repeat center;
     background-size: cover;
-    background-color: #f40;
 }
 .container{
     box-sizing: border-box;

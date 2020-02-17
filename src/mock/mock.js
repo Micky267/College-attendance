@@ -16,11 +16,11 @@ Mock.mock(`${domain}/user/getCourseList`, 'get', {
     'className|1-8':1,
     'attendTotal|18-36':1,
     'normal': function () {
-      return (this.attendTotal-this.late-this.truant-this.leave)
+      return (this.attendTotal-this.late-this.truant-this.leaves)
     },
     'late|0-5': 1,
     'truant|0-5': 1,
-    'leave|0-5': 1,
+    'leaves|0-5': 1,
     score: function () {
       return (100 - this.late * 1 - this.truant * 5)
     }
@@ -85,7 +85,7 @@ Mock.mock(`${domain}/admin/getAllCoures`, 'get', {
     'stuTotal|50-100':1,
     'lateAVG|0-5': 1,
     'truantAVG|0-5': 1,
-    'leaveAVG|0-5': 1,
+    'leavesAVG|0-5': 1,
   }]
 });
 
@@ -98,6 +98,94 @@ Mock.mock(`${domain}/admin/getTeacher`, 'get', {
     'sex':['男','女'],
     'phone|1':[15107659897,1534849816],
     'faculty|1':['电气学院'],
+  }]
+});
+
+
+//————————————————
+/**
+ * 导进去数据库的数据
+ * 
+ */
+
+ //行政班表
+Mock.mock(`${domain}/database/adminClass`, 'get', {
+  code: 200,
+  'data|50':[{
+    'sid|+1':162011,
+    'className|+1':[1,2,3,4,5,6,7,8],
+    'grade|2016-2020':1,
+    'faculty|+1':['电气学院','会计学院','商学院','文传系','医学院','音乐学院','国际学院'],
+    'major|+1':['计算机科学与技术','会计','工商管理','网络与多媒体','护理','音乐','德语',]
+  }]
+});
+
+ //学生表
+ Mock.mock(`${domain}/database/student`, 'get', {
+  code: 200,
+  'data|750':[{
+    'sid|+1':162011001,
+    'name':'@CNAME',
+    'sex|1':['男','女'],
+    'acId|162011-162060':1,
+    'phone|+1':15107680001,
+    'password':123
+  }]
+});
+
+
+ //教师表
+ Mock.mock(`${domain}/database/teacher`, 'get', {
+  code: 200,
+  'data|10':[{
+    'sid|+1':1001,
+    'name':'@CNAME',
+    'sex|1':['男','女'],
+    'phone|+1':18108712000,
+    'password':123
+  }]
+});
+
+ //教学班表
+ Mock.mock(`${domain}/database/teacherClass`, 'get', {
+  code: 200,
+  'data|5':[{
+    'sid|+1':200111,
+    'cId|2001-2013':1,
+    'time|1':['周一3-5','周二3-5,周三2-3','周四9-11,周五1-3','周二9-11','周三9-11'],
+    'tId|+1':1001,
+    'classroom|1':['2-202','2-201','2-203','2-204','2-301','3-201','3-202','4-201'],
+    'stuTotal':75,
+    'attendTotal':0,
+    'lateScore':1,
+    'truantScore':5,
+  }]
+});
+
+ //教学班学生表
+ Mock.mock(`${domain}/database/teacherClassStudent`, 'get', {
+  code: 200,
+  'data|75':[{
+    'sid|+1':2001012001,
+    'tcId':200115,
+    'stuId|+1':162011301,
+    'truant':0,
+    'leaves':0,
+    'late':0,
+  }]
+});
+
+ //考勤表
+ Mock.mock(`${domain}/database/teacherClassStudent`, 'get', {
+  code: 200,
+  'data|950':[{
+    'i|+1':1,
+    'sid':function(){
+      return new Date().getTime()+(this.i+'')
+    },
+    'tcsId|+1':200101001,
+    'date':'2017-04-29',
+    'status|1':[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,3,3,4],
   }]
 });
 
@@ -120,7 +208,7 @@ Mock.mock(`${domain}/courseStuDatas`, 'post', {
             'normal|1-18': 1,
             'late|0-5': 1,
             'truant|0-5': 1,
-            'leave|0-5': 1,
+            'leaves|0-5': 1,
             score: function () {
               return (100 - this.late * 2 - this.truant * 5)
             }
@@ -147,7 +235,7 @@ Mock.mock(`${domain}/courseTotal/1.json`, 'get', {
     //       'actualNum': -1,
     //       'late|0-5': 1,
     //       'truant|0-5': 1,
-    //       'leave|0-5': 1,
+    //       'leaves|0-5': 1,
     //     }
     //   ],
     //   'total|50-100': 1  //该门课总上课人数
@@ -159,13 +247,13 @@ Mock.mock(`${domain}/courseTotal/1.json`, 'get', {
       'normalRatio': 90,
       'lateRatio': 6,
       'truantlRatio': 2,
-      'leavelRatio': 2,
+      'leaveslRatio': 2,
       'times|16-18': [  //该门课对应的周数，显示每一周的详细情况
         {
           'actualNum': -1,
           'late|0-5': 1,
           'truant|0-5': 1,
-          'leave|0-5': 1,
+          'leaves|0-5': 1,
         }
       ],
       'total|80-110': 1  //该门课总上课人数
@@ -184,13 +272,13 @@ Mock.mock(`${domain}/courseTotal/2.json`, 'get', {
       'normalRatio': 89,
       'lateRatio': 7,
       'truantlRatio': 2,
-      'leavelRatio': 2,
+      'leaveslRatio': 2,
       'times|32-36': [  //该门课对应的周数，显示每一周的详细情况
         {
           'actualNum': -1,
           'late|0-5': 1,
           'truant|0-5': 1,
-          'leave|0-5': 1,
+          'leaves|0-5': 1,
         }
       ],
       'total|50-100': 1  //该门课总上课人数
@@ -202,13 +290,13 @@ Mock.mock(`${domain}/courseTotal/2.json`, 'get', {
       'normalRatio': 95,
       'lateRatio': 3,
       'truantlRatio': 2,
-      'leavelRatio': 0,
+      'leaveslRatio': 0,
       'times|16-18': [  //该门课对应的周数，显示每一周的详细情况
         {
           'actualNum': -1,
           'late|0-5': 1,
           'truant|0-5': 1,
-          'leave|0-5': 1,
+          'leaves|0-5': 1,
         }
       ],
       'total|80-110': 1  //该门课总上课人数
@@ -227,13 +315,13 @@ Mock.mock(`${domain}/courseTotal/3.json`, 'get', {
       'normalRatio': 89,
       'lateRatio': 7,
       'truantlRatio': 2,
-      'leavelRatio': 2,
+      'leaveslRatio': 2,
       'times|32-36': [  //该门课对应的周数，显示每一周的详细情况
         {
           'actualNum': -1,
           'late|0-5': 1,
           'truant|0-5': 1,
-          'leave|0-5': 1,
+          'leaves|0-5': 1,
         }
       ],
       'total|50-100': 1  //该门课总上课人数
@@ -245,13 +333,13 @@ Mock.mock(`${domain}/courseTotal/3.json`, 'get', {
       'normalRatio': 70,
       'lateRatio': 15,
       'truantlRatio': 5,
-      'leavelRatio': 5,
+      'leaveslRatio': 5,
       'times|16-18': [  //该门课对应的周数，显示每一周的详细情况
         {
           'actualNum': -1,
           'late|0-5': 1,
           'truant|0-5': 1,
-          'leave|0-5': 1,
+          'leaves|0-5': 1,
         }
       ],
       'total|80-110': 1  //该门课总上课人数

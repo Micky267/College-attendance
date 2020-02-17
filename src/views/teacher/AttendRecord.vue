@@ -23,10 +23,10 @@
       <el-table-column prop="stuId" label="学号" width="120"></el-table-column>
       <el-table-column prop="sName" label="姓名" width="88"></el-table-column>
       <el-table-column prop="attendTotal" label="考勤次数" width="80"></el-table-column>
-      <el-table-column prop="normal" label="正常次数" width="80"></el-table-column>
-      <el-table-column prop="late" label="迟到次数" width="80"></el-table-column>
-      <el-table-column prop="truant" label="旷课次数" width="80"></el-table-column>
-      <el-table-column prop="leave" label="请假次数" width="80"></el-table-column>
+      <el-table-column prop="normals" label="正常次数" width="80"></el-table-column>
+      <el-table-column prop="lates" label="迟到次数" width="80"></el-table-column>
+      <el-table-column prop="truants" label="旷课次数" width="80"></el-table-column>
+      <el-table-column prop="leaves" label="请假次数" width="80"></el-table-column>
       <el-table-column prop="score" label="考勤分" width="80"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">

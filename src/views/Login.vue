@@ -5,7 +5,7 @@
           <div id="darkbannerwrap"></div>
           <el-form :label-position="labelPosition" >
             <el-form-item >
-              <el-input v-model="sid" placeholder="请输入账号"></el-input>
+              <el-input v-model="userId" placeholder="请输入账号"></el-input>
             </el-form-item>
             <el-form-item>
               <el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
@@ -18,29 +18,32 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm()" style="background-color: #189F92;width:100%;" >提交</el-button>
+                <el-button type="primary" @click="submitForm()" style="background-color: #189F92;width:100%;" >登录</el-button>
             </el-form-item>
           </el-form>
-
+          <!-- <el-button type="primary" @click="upDatas()" style="background-color: #189F92;width:100%;" >上传数据</el-button> -->
       </div>
   </div>
 </template>
 
 <script>
+  // import jsonData from '../databaseData/attendance.json'
 export default {
   name: "curNav",
   data(){
       return {
         labelPosition: 'right',
-        sid: '',
+        userId: '',
         password: '',
-        role: '学生'
+        role: '学生',
+        data:'',
       }
   },
   methods:{
     submitForm(){
       console.log("this",this.role)
-      sessionStorage.setItem('sid', this.sid);
+      sessionStorage.setItem('userId', this.userId);
+      this.GLOVAL.userId = this.userId;
       switch(this.role){
         case '学生':
          this.$router.push('user/student')
@@ -57,9 +60,29 @@ export default {
          default:
            return
       }
+    },
+    upDatas(){
+      //生成数据
+      // this.$http.get('/database/teacherClassStudent')
+      // .then((res)=>{
+      //   console.log(res)
+      //   document.write(JSON.stringify(res.data.data))
+      // })
+      // var list = JSON.parse(jsonData)
+
+      // var oneList =  jsonData.slice(0,1000)
+      // var twoList =  jsonData.slice(1000,2000)
+      // var threeList =  jsonData.slice(2000,3000)
+      // var foreList =  jsonData.slice(3000,4000)
+      // var firfList =  jsonData.slice(4000)
+      // 发送数据添加到数据库
+      // this.$http.post('/api/addAttendance',{jsonData:firfList})
+      //   .then((res)=>{
+      //     console.log('后台请求的数据',res)
+      //   })
     }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -69,7 +92,6 @@ export default {
     position: relative;
     background: url(../assets/img/bg.png) no-repeat center;
     background-size: cover;
-    background-color: #f40;
 }
 .container{
     box-sizing: border-box;
