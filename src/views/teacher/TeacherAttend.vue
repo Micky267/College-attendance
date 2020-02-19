@@ -7,10 +7,10 @@
     <el-table :data="stuList" border style="width: 100%" :row-style="{height:'50px'}" :cell-style="{padding:'0px'}">
       <!-- <el-table-column prop="yearSemester" label="学期" width="180"></el-table-column> -->
       <el-table-column prop="number" label="序号" width="80"></el-table-column>
+      <el-table-column prop="className" label="班级" width="215"></el-table-column>
       <el-table-column prop="stuId" label="学号" width="120"></el-table-column>
       <el-table-column prop="sName" label="姓名" width="88"></el-table-column>
       <el-table-column prop="sex" label="性别" width="80"></el-table-column>
-      <el-table-column prop="className" label="班级" width="120"></el-table-column>
       <el-table-column label="状态" prop="status">
         <template slot-scope="scope">
           <!-- <el-radio-group v-model="status" @change="(label)=>{statusChange(scope.$index,label)}"> -->
@@ -24,7 +24,7 @@
       </el-table-column>
     </el-table>
     <el-row type="flex"  justify="center" style="padding: 15px;">
-      <el-button  type="primary" @click="saveFn" style="margin-right: 50px;">保存</el-button>
+      <el-button  type="primary" @click="saveFn" style="margin-right: 50px;" :disabled = "ifDisabled">保存</el-button>
       <el-button  type="danger" @click="returnFn()">返回</el-button>
     </el-row>
  
@@ -39,6 +39,7 @@ export default {
       stuList:[],
       reqList:[],
       couresMes:'',
+      ifDisabled:false
     }
   },
   computed: {
@@ -53,17 +54,33 @@ export default {
   methods: {
     //页面初始获取学生数据
     reqStuDatas(){
-      console.log('传过来的id是',this.$route.params.id)
-      this.$http.get('/teacher/getAttendStu')
+      this.$http.get('/api/teacher/ifAttended',
+      {params:{
+        tcId: this.$route.params.id,
+        date: this.curDate
+      }})
       .then((res)=>{
-        console.log('老师考勤获取的学生数据',res.data.data)
+        console.log('老师考勤获取某日期的学生数据',res)
+        if(res.data.data.length != 0){
+          this.ifDisabled = true
+        }
+      })
+
+      this.$http.get('/api/teacher/getAttendStu',
+      {
+      params:{
+        tcId:this.$route.params.id
+      }})
+      .then((res)=>{
+        console.log('老师考勤获取的学生数据',res)
         const resData = res.data.data
-        this.stuList = resData.stuList
-        this.couresMes = `${resData.yearSemester} ${resData.cName} ${resData.tName}`
-        resData.stuList.map((currentValue,index)=>{
+        this.stuList = resData
+        this.couresMes = `${resData[0].yearSemester} ${resData[0].cName} ${resData[0].tName}`
+        resData.map((currentValue,index)=>{
           this.reqList.push(
             {
-              sid:currentValue.sid,
+              tcsId:currentValue.sid,
+              tcId:this.$route.params.id,
               date:this.curDate,
               status:'1'
             }
@@ -85,15 +102,17 @@ export default {
             if (action === 'confirm') {
               instance.confirmButtonLoading = true;
               instance.confirmButtonText = '正在保存...';
-              setTimeout(() => {
-                console.log('要发生请求的数据',this.reqList)
+              this.$http.post('/api/teacher/addAttendance',{jsonData:this.reqList})
+              .then((res)=>{
+                console.log('后台返回的的数据',res)
                 done();
                 setTimeout(() => {
                   instance.confirmButtonLoading = false;
                 }, 300);
-              }, 3000);
+              })
             } else {
               done();
+              instance.confirmButtonLoading = false;
             }
           }
         }).then(() => {
@@ -101,7 +120,9 @@ export default {
             type: 'success',
             message: '保存成功!'
           });
-          this.$router.push('/user/teacher/attend-init/')
+        this.reqStuDatas()
+
+          // this.$router.push('/user/teacher/attend-init/')
         }).catch(() => {
           this.$message({
             type: 'info',

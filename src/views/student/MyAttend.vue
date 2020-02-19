@@ -15,12 +15,16 @@
 
     <el-table :data="courseList" border style="width: 100%">
       <el-table-column prop="yearSemester" label="学期" width="180"></el-table-column>
-      <el-table-column prop="cName" label="课程" width="250"></el-table-column>
+      <el-table-column prop="cName" label="课程名称" width="250"></el-table-column>
       <el-table-column prop="tName" label="授课老师" width="120"></el-table-column>
       <el-table-column prop="attendTotal" label="考勤次数" width="120"></el-table-column>
       <el-table-column prop="normals" label="正常次数" width="120"></el-table-column>
       <el-table-column prop="lates" label="迟到次数" width="120"></el-table-column>
-      <el-table-column prop="truants" label="旷课次数" width="120"></el-table-column>
+      <el-table-column prop="truants" label="旷课次数" width="80">
+        <template slot-scope="scope">
+         <span :class="{'truant-red':scope.row.truants>=3}">{{scope.row.truants}}</span> 
+         </template>
+      </el-table-column>
       <el-table-column prop="leaves" label="请假次数" width="120"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -36,7 +40,11 @@
         <el-table-column property="date" label="日期" width="180"></el-table-column>
         <el-table-column property="status" label="状态" >
           <template slot-scope="scope">
-           {{scope.row.status | getStatus}}
+           <span :class="{
+            'truant-red': scope.row.status==3,
+            'normal-green': scope.row.status==1,
+            'late-blue': scope.row.status==2,
+          }">{{scope.row.status | getStatus}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -197,5 +205,14 @@
 <style scoped>
   .el-pagination {
     margin-top: 15px;
+  }
+  .truant-red{
+    color: #f40;
+  }
+  .normal-green{
+    color: green;
+  }
+  .late-blue{
+    color:dodgerblue;
   }
 </style>
