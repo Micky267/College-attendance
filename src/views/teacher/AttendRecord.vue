@@ -261,10 +261,7 @@ export default {
               this.$http.post('/api/teacher/updateStu',{reqCurStatus:this.reqCurStatus})
               .then((res)=>{
                 //修改学生考勤详情数据
-              console.log('要发生修改的请求数据',this.reqCurStatus)
                 this.courseDetail[this.updateIndex].status = Number(this.newStatus) 
-                 console.log('修改后学生考勤详情数据的状态',this.courseDetail[this.updateIndex].status)
-                console.log('后台返回的的数据',res)
                 this.reqCourse()
                 this.newStatusVisible = false
                 done();

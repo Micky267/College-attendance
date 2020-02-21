@@ -1,7 +1,7 @@
 <template>
   <div class="my-attend">
     <el-form :inline="true" :model="formSelect" class="demo-form-inline">
-      <el-form-item label="学期">
+      <el-form-item label="学期1">
         <div class="block">
           <el-cascader v-model="formSelect.yearSemester" :options="semesterList" :props="{ expandTrigger: 'hover' }" @change="handleChange "></el-cascader>
         </div>

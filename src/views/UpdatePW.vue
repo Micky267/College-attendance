@@ -31,12 +31,27 @@ export default {
   },
   methods:{
     updateFn(){
+      console.log('修改密码！')
       if(this.rePassword == this.password){
-        this.$message({
-            type: 'success',
-            message: '修改成功!'
-          });
-        this.$router.push('/login')
+        console.log('密码一致！')
+        this.$http.post('/api/user/updatePW',{
+            sid: this.GLOVAL.userId,
+            pw: this.password,
+            role: Number(sessionStorage.getItem('role'))
+          })
+          .then((res)=>{
+            console.log('修改密码结果',res)
+            if(res.data.status == "200"){
+            this.$router.push('/login')
+              this.$message({
+                type: 'success',
+                message: '修改成功'
+            });
+            }
+          })
+          .catch(error=>{
+            console.error('错误！',error)
+          })
       }
       else{
         this.$message({

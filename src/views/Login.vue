@@ -12,9 +12,9 @@
             </el-form-item>
             <el-form-item>
               <el-radio-group v-model="role">
-                <el-radio label="学生" ></el-radio>
-                <el-radio label="老师" ></el-radio>
-                <el-radio label="管理员" ></el-radio>
+                <el-radio label="1" >学生</el-radio>
+                <el-radio label="2" >老师</el-radio>
+                <el-radio label="3" >管理员</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item>
@@ -35,7 +35,7 @@ export default {
         labelPosition: 'right',
         userId: '',
         password: '',
-        role: '学生',
+        role: '1',
         data:'',
       }
   },
@@ -44,22 +44,42 @@ export default {
       console.log("this",this.role)
       sessionStorage.setItem('userId', this.userId);
       this.GLOVAL.userId = this.userId;
-      switch(this.role){
-        case '学生':
+      console.log('role', this.role)
+      console.log('role', Number(this.role))
+      this.$http.get('/api/user/login',{
+        params:{
+          sid: this.userId,
+          pw: this.password,
+          role: Number(this.role)
+        }
+      })
+      .then(res=>{
+        if(res.data.message == "success"){
+          switch(this.role){
+        case '1':
          this.$router.push('user/student')
          sessionStorage.setItem('role', 1);
          break 
-        case '老师':
+        case '2':
          this.$router.push('user/teacher')
          sessionStorage.setItem('role', 2);
          break 
-        case '管理员':
+        case '3':
          this.$router.push('user/admin')
          sessionStorage.setItem('role', 3);
          break 
          default:
            return
       }
+        }
+        else{
+          this.$message.warning('密码错误！')
+        }
+      })
+      .catch(error=>{
+        console.error('错误！',error)
+      })
+
     },
     upDatas(){
       //生成数据
