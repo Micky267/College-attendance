@@ -1,7 +1,7 @@
 <template>
   <div class="statistics">
-    <el-form :inline="true" class="demo-form-inline" v-model="selectData" label-width="80px" >
-      <el-form-item label="学期2" style="margin-left: -40px;">
+    <el-form :inline="true" v-model="selectData" label-width="80px" >
+      <el-form-item label="学期" style="margin-left: -30px;">
         <div class="block">
           <el-cascader
             v-model="semester"
@@ -28,7 +28,7 @@
         <el-button type="primary" @click="onSubmit" style="width: 100px;margin-left: 50px;">查询</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="courseList" border style="width: 100%" :default-sort = "{prop: 'cGrade', order: 'descending'}">
+    <el-table stripe :data="courseList" border style="width: 100%" :default-sort = "{prop: 'cGrade', order: 'descending'}" max-height="520px" >
       <el-table-column prop="yearSemester" label="学期" width="180"></el-table-column>
       <el-table-column prop="cGrade" label="面向年级" width="180" sortable></el-table-column>
       <el-table-column prop="cName" label="课程" width="250" sortable></el-table-column>
@@ -74,6 +74,7 @@ export default {
   name: "attendAttend",
   data() {
     return {
+      
       selectData:{
         year:this.GLOVAL.year,
         semester:this.GLOVAL.semester,
@@ -111,15 +112,18 @@ export default {
     // })
   },
   methods: {
+
     // 选择学期
     handleChange(value) {
       this.selectData.year = value[0]
       this.selectData.semester  = value[1]
     },
+
+    //发生请求
     onSubmit() {
       this.reqCourse()
-
     },
+
     detailFn(index, row) {
       this.dialogTableVisible = true
       this.$http.get('/user/getCourseDetail')
@@ -136,13 +140,6 @@ export default {
 
     //发生请求拿到课程数据
     reqCourse(){
-      // let params = {
-      //   year: '2016-2017',
-      //   semester: 2,
-      //   grade: 2016,
-      //   cName: '',
-      //   tName: ''
-      // }
       console.log('要查询的条件',this.selectData)
       let params = {
         year:this.selectData.year.trim(),

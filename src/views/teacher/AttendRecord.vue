@@ -24,7 +24,7 @@
       </div>
 
     </el-form>
-    <el-table :data="courseList" border style="width: 100%" :row-style="{height:'50px'}" :cell-style="{padding:'0px'}">
+    <el-table :data="courseList" border style="width: 100%" :row-style="{height:'50px'}" :cell-style="{padding:'0px'}" stripe>
       <!-- <el-table-column prop="yearSemester" label="学期" width="180"></el-table-column> -->
       <el-table-column prop="number" label="序号" width="80">
         <template slot-scope="scope">

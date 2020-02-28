@@ -32,7 +32,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/updatePW',
+    path: '/update-pw',
     name: 'updatePW',
     component: UpdatePW
   },
