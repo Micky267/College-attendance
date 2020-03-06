@@ -1,7 +1,7 @@
 <template>
   <div class="drop-menu" @mouseenter="ifShow=true" @mouseleave="ifShow=false">
     <div class="title"  >
-      <span>账户</span>
+      <span>{{userName}}</span>
       <i class="fa fa-angle-down"></i>
     </div>
     <transition name="fade">
@@ -20,12 +20,13 @@ export default {
       list: ["修改密码", "退出"],
       ifShow: false,
       curIndex:-1,
+      userName:sessionStorage.getItem('name')
     };
   },
   methods:{
     choose(index){
       if(index == 0){
-        this.$router.push('/updatePW')
+        this.$router.push('/update-pw')
       }
       if(index == 1){
         sessionStorage.clear();

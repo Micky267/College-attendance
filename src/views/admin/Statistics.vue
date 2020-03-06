@@ -74,15 +74,14 @@ export default {
   name: "attendAttend",
   data() {
     return {
-      
       selectData:{
-        year:this.GLOVAL.year,
-        semester:this.GLOVAL.semester,
+        year:this.GLOBAL.year,
+        semester:this.GLOBAL.semester,
         cName: '',
         tName: '',
         grade:'',
       },
-      semester:[this.GLOVAL.year,this.GLOVAL.semester],
+      semester:[this.GLOBAL.year,this.GLOBAL.semester],
       semesterList,
       gradeList,
       dialogTableVisible: false,

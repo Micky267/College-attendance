@@ -1,15 +1,14 @@
 <template>
-  <div class="student">
-    <router-view/>
+  <div class="approval">
+    请假审批
   </div>
 </template>
 
 <script>
 export default {
-  name: "student"
+  name: "approval"
 };
 </script>
 
 <style scoped>
-
 </style>

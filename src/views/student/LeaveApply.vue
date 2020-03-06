@@ -1,15 +1,14 @@
 <template>
-  <div class="student">
-    <router-view/>
+  <div class="leave">
+    请假功能
   </div>
 </template>
 
 <script>
 export default {
-  name: "student"
+  name: "leave"
 };
 </script>
 
 <style scoped>
-
 </style>

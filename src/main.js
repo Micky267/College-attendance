@@ -14,7 +14,7 @@ import globalValue from './global/global'
 Vue.use(VueAxios,axios);
 // axios.defaults.baseURL = 'http://mockjs.com/api' // 设置默认请求的url
 // Vue.prototype.$http = axios
-Vue.prototype.GLOVAL = globalValue
+Vue.prototype.GLOBAL = globalValue
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);

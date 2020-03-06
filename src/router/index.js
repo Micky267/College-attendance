@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import UpdatePW from '../views/UpdatePW.vue'
 import Student from '../views/student/Student.vue'
 import MyAttend from '../views/student/MyAttend.vue'
+import LeaveApply from '../views/student/LeaveApply.vue'
 import Other from '../views/student/Other.vue'
 import Admin from '../views/admin/Admin.vue'
 import Statistics from '../views/admin/Statistics.vue'
@@ -14,6 +15,9 @@ import Teacher from '../views/teacher/Teacher.vue'
 import AttendRecord from '../views/teacher/AttendRecord.vue'
 import AttendInit from '../views/teacher/AttendInit.vue'
 import TeacherAttend from '../views/teacher/TeacherAttend.vue'
+import LeaveApproval from '../views/counselor/LeaveApproval.vue'
+import LeaveRecord from '../views/counselor/LeaveRecord.vue'
+import LeaveFlow from '../views/counselor/LeaveFlow.vue'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
@@ -53,6 +57,14 @@ const routes = [
             path: 'other', 
             component: Other, 
           },
+          { 
+            path: 'leave-apply', 
+            component: LeaveApply, 
+          },
+          { 
+            path: 'leave-flow', 
+            component: LeaveFlow, 
+          },
         ]
       },
       {
@@ -68,9 +80,29 @@ const routes = [
             path: 'attend-init', 
             component: AttendInit, 
           },
+
           { 
             path: 'teacher-attend/:id', 
             component: TeacherAttend, 
+          },
+        ]
+      },
+      {
+        path: 'counselor',
+        redirect: 'counselor/leave-record',
+        component: Teacher,
+        children: [
+          { 
+            path: 'leave-record', 
+            component:LeaveRecord, 
+          },
+          { 
+            path: 'leave-approval', 
+            component: LeaveApproval, 
+          },
+          { 
+            path: 'leave-flow', 
+            component: LeaveFlow, 
           },
         ]
       },

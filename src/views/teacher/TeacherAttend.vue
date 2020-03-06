@@ -5,7 +5,6 @@
       <el-form-item :label="curDate" style="float: right;"></el-form-item>
     </el-form>
     <el-table :data="stuList" border style="width: 100%" :row-style="{height:'50px'}" :cell-style="{padding:'0px'}">
-      <!-- <el-table-column prop="yearSemester" label="学期" width="180"></el-table-column> -->
       <el-table-column prop="number" label="序号" width="80"></el-table-column>
       <el-table-column prop="className" label="班级" width="215"></el-table-column>
       <el-table-column prop="stuId" label="学号" width="120"></el-table-column>
@@ -13,7 +12,6 @@
       <el-table-column prop="sex" label="性别" width="80"></el-table-column>
       <el-table-column label="状态" prop="status">
         <template slot-scope="scope">
-          <!-- <el-radio-group v-model="status" @change="(label)=>{statusChange(scope.$index,label)}"> -->
             <el-radio-group v-model="reqList[scope.$index].status" @change="function(label){statusChange(scope.$index,label)}">
             <el-radio label="1" >正常</el-radio>
             <el-radio label="2" >迟到</el-radio></el-radio>
@@ -26,6 +24,11 @@
     <el-row type="flex"  justify="center" style="padding: 15px;">
       <el-button  type="primary" @click="saveFn" style="margin-right: 50px;" :disabled = "ifDisabled">保存</el-button>
       <el-button  type="danger" @click="returnFn()">返回</el-button>
+    </el-row>
+    <el-row type="flex" justify="center" style="padding: 15px;">
+      <div class="mes">
+        <p>提示：保存考勤后，无法在本页面修改学生考勤结果，若想修改请前往学生考勤详情页进行操作。</p>
+      </div>
     </el-row>
  
   </div>

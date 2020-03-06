@@ -5,23 +5,26 @@
       <div id="darkbannerwrap"></div>
       <el-form :label-position="labelPosition">
         <el-form-item>
-          <el-input v-model="userId" placeholder="请输入账号" ></el-input>
+          <el-input v-model="userId" placeholder="请输入账号"></el-input>
         </el-form-item>
         <el-form-item>
           <el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
-            <div class="forget-pw"><router-link to="/update-pw">忘记密码</router-link></div>
+          <div class="forget-pw">
+            <router-link to="/update-pw">忘记密码</router-link>
+          </div>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="inpuIdentify"  placeholder="请输入验证码" style="width: 200px;float: left;"></el-input>
-          <div  @click="refreshCode" style="float: right">
-            <SIdentify  :backgroundColorMax="255" :backgroundColorMin="230" :identifyCode="identifyCode"  ></SIdentify>
+          <el-input v-model="inpuIdentify" placeholder="请输入验证码" style="width: 200px;float: left;"></el-input>
+          <div @click="refreshCode" style="float: right">
+            <SIdentify :backgroundColorMax="255" :backgroundColorMin="230" :identifyCode="identifyCode"></SIdentify>
           </div>
         </el-form-item>
 
         <el-form-item>
-          <el-radio-group v-model="role">
+          <el-radio-group v-model="role" style="width: 100%;">
             <el-radio label="1">学生</el-radio>
             <el-radio label="2">老师</el-radio>
+            <el-radio label="4">辅导员</el-radio>
             <el-radio label="3">管理员</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -61,7 +64,8 @@
     },
     methods: {
       submitForm() {
-        if(this.inpuIdentify.trim() == ''){
+        /*
+                if(this.inpuIdentify.trim() == ''){
           this.$message.warning('请输入验证码！')
         }
        else  if(this.inpuIdentify == this.identifyCode){
@@ -78,8 +82,6 @@
           })
             .then(res => {
               if (res.data.message == "success") {  
-                sessionStorage.setItem('userId', this.userId);
-                this.GLOVAL.userId = this.userId;
                 switch (this.role) {
                   case '1':
                     this.$router.push('user/student')
@@ -93,9 +95,15 @@
                     this.$router.push('user/admin')
                     sessionStorage.setItem('role', 3);
                     break
+                  case '4':
+                    this.$router.push('user/counselor')
+                    sessionStorage.setItem('role', 4);
+                    break
                   default:
                     return
                 }
+                sessionStorage.setItem('name', res.data.data[0].NAME);
+                sessionStorage.setItem('userId', this.userId);
               }
               else {
                 this.$message.warning('密码错误！')
@@ -109,21 +117,42 @@
         else{
           this.$message.warning('验证码错误！')
         }
-
+        */
+        switch (this.role) {
+          case '1':
+            this.$router.push('user/student')
+            sessionStorage.setItem('role', 1);
+            break
+          case '2':
+            this.$router.push('user/teacher')
+            sessionStorage.setItem('role', 2);
+            break
+          case '3':
+            this.$router.push('user/admin')
+            sessionStorage.setItem('role', 3);
+            break
+          case '4':
+            this.$router.push('user/counselor')
+            sessionStorage.setItem('role', 4);
+            break
+          default:
+            return
+        }
+        sessionStorage.setItem('userId', this.userId);
       },
 
-       //发送邮箱
-       sendEmail(){
-      let params= {
-              sid: '162011001',
-              email: '939505073@qq.com',
-              role: '1'
-            }
-        this.$http.post("/api/user/send-email",params)
-        .then(res=>{
-          console.log('发送邮箱返回的数据',res)
-        })
-       }, 
+      //发送邮箱
+      sendEmail() {
+        let params = {
+          sid: '162011001',
+          email: '939505073@qq.com',
+          role: '1'
+        }
+        this.$http.post("/api/user/send-email", params)
+          .then(res => {
+            console.log('发送邮箱返回的数据', res)
+          })
+      },
       //验证码的方法
       randomNum(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
@@ -180,7 +209,8 @@
     margin: 0 0 20px -58px;
     position: relative;
   }
-  .container .forget-pw a{
+
+  .container .forget-pw a {
     height: 25px;
     color: #f40;
     float: right;

@@ -60,7 +60,7 @@
       return {
         userId:'',
         formSelect: {
-          yearSemester: [this.GLOVAL.year,this.GLOVAL.semester],
+          yearSemester: [this.GLOBAL.year,this.GLOBAL.semester],
         },
         semesterList,
         dialogTableVisible: false,
@@ -73,9 +73,8 @@
     },
     computed: {
       reqData(){
-        console.log('this.GLOVAL.userId',this.GLOVAL)
         return {
-          stuId: this.GLOVAL.userId,
+          stuId:sessionStorage.getItem('userId'),
           page: 1,
           size: this.pageSize,
           year: this.formSelect.yearSemester[0],
