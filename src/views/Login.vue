@@ -24,7 +24,6 @@
           <el-radio-group v-model="role" style="width: 100%;">
             <el-radio label="1">学生</el-radio>
             <el-radio label="2">老师</el-radio>
-            <el-radio label="4">辅导员</el-radio>
             <el-radio label="3">管理员</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -64,7 +63,7 @@
     },
     methods: {
       submitForm() {
-        /*
+        
                 if(this.inpuIdentify.trim() == ''){
           this.$message.warning('请输入验证码！')
         }
@@ -116,27 +115,6 @@
         }
         else{
           this.$message.warning('验证码错误！')
-        }
-        */
-        switch (this.role) {
-          case '1':
-            this.$router.push('user/student')
-            sessionStorage.setItem('role', 1);
-            break
-          case '2':
-            this.$router.push('user/teacher')
-            sessionStorage.setItem('role', 2);
-            break
-          case '3':
-            this.$router.push('user/admin')
-            sessionStorage.setItem('role', 3);
-            break
-          case '4':
-            this.$router.push('user/counselor')
-            sessionStorage.setItem('role', 4);
-            break
-          default:
-            return
         }
         sessionStorage.setItem('userId', this.userId);
       },

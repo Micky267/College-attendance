@@ -50,9 +50,6 @@
         case '3':
           this.menuList = adminMenuList
           break
-        case '4':
-          this.menuList = counMenuList
-          break
         default:
           console.log('没有进去角色定位！session存的role', role);
           return;
@@ -98,35 +95,6 @@
       icon: "fa-bar-chart ",
       path: "/user/student/my-attend",
     },
-    {
-      title: "请假系统",
-      icon: "fa-list ",
-      path: "",
-      content: [
-        {
-          title: "请假申请",
-          path: "/user/student/leave-apply",
-        },
-        {
-          title: "请假流程",
-          path: "/user/student/leave-flow",
-        },
-      ]
-    }
-  ]
-  //辅导员导航
-  const counMenuList = [
-    {
-      title: "请假审批",
-      icon: "fa-bar-chart",
-      path: "/user/counselor/leave-approval",
-
-    },
-    {
-      title: "请假记录",
-      icon: "fa-list",
-      path: "/user/counselor/leave-record",
-    }
   ]
   //老师导航
   const teaMenuList = [

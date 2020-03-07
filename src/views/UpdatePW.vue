@@ -148,7 +148,7 @@
       },
       //返回
       returnFn() {
-        this.$router.push('/login')
+        this.$router.go(-1)
       },
 
       //通过邮箱发生验证码

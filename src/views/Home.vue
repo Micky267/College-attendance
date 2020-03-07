@@ -38,13 +38,16 @@ export default {
       else{
        switch(role){
         case "1":
-        this.title = "个人考勤"
+          this.title = "个人考勤"
           break
         case "2":
-        this.title = "考勤记录"
+          this.title = "考勤记录"
           break
         case "3":
-        this.title = "考勤统计表"
+          this.title = "考勤统计表"
+          break
+        case "4":
+         this.title = "请假审批"
           break
         default:
         this.title = "获取不到"      
